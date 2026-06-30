@@ -12,7 +12,17 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
-        read_only_fields = [
-            'owner',
-            'created_at'
+        read_only_fields = fields = [
+            "id",
+            "owner",
+            "title",
+            "author",
+            "description",
+            "image",
+            "language",
+            "category",
+            "condition",
+            "available",
+            "created_at",
+            "updated_at",
         ]
