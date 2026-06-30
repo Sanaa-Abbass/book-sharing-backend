@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
-# Create your views here.
+from .models import Book
+from .serializers import BookSerializer
+
+
+class BookListCreateView(
+    generics.ListCreateAPIView
+):
+
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+
+    def perform_create(self, serializer):
+        serializer.save(
+            owner=self.request.user
+        )
