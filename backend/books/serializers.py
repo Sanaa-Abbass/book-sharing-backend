@@ -4,15 +4,15 @@ from .models import Book
 
 class BookSerializer(serializers.ModelSerializer):
 
-    owner_username = serializers.CharField(
-        source='owner.username',
-        read_only=True
+    owner = serializers.ReadOnlyField(
+        source="owner.username"
     )
 
     class Meta:
+
         model = Book
-        fields = '__all__'
-        read_only_fields = fields = [
+
+        fields = [
             "id",
             "owner",
             "title",
@@ -26,3 +26,18 @@ class BookSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+        extra_kwargs = {
+            "title": {
+                "required": True,
+                "allow_blank": False
+            },
+            "author": {
+                "required": True,
+                "allow_blank": False
+            },
+            "condition": {
+                "required": True,
+                "allow_blank": False
+            }
+        }
