@@ -1,10 +1,20 @@
 from django.urls import path
 from .views import BookListCreateView
 
+from .views import BookViewSet
+
+router = DefaultRouter()
+
+router.register(
+    "",
+    BookViewSet,
+    basename="books"
+)
+
 urlpatterns = [
+
     path(
-        '',
-        BookListCreateView.as_view(),
-        name='book-list'
+        "",
+        include(router.urls)
     ),
 ]
